@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Funcion Memoize</title>
+</head>
+<body>
+    <script src="../dist/pruebas.js"></script>
+    <header>
+        <h1>Función <code>Memoize</code></h1>
+    </header>
+    <div class="container">
+        <h2>Introducción</h2>
+        <p>La función <code>Memoize</code> es una función en JavaScript que implementa una técnica de 
+            programación en la cual se reduce el tiempo de ejecución de una función a cambio de ampliar 
+            el coste del espacio (normalmente en memoria). Es decir, las funciones que han sido memoizadas 
+            ganan velocidad al usar un mayor espacio de memoria.</p>
+
+        <h2>Código de la Función</h2>
+        <div class="code">
+            <code>function sumaMemoize(): (a: number, b: number) => number {
+                const cache: { [clave: string]: number } = {};
+            
+                return function suma(a: number, b: number): number {
+                    const clave = `${a}_${b}`;
+            
+                    if (cache.hasOwnProperty(clave)) {
+                        console.log('Devuelve resultado almacenado en el cache');
+                        return cache[clave]!;
+                    }
+            
+                    console.log(`Calcula la suma de ${a} y ${b}`);
+                    cache[clave] = a + b;
+                    return cache[clave]!;
+                };
+            }</code>
+        </div>
+
+        <h2>Ejemplo de Uso</h2>
+        <div class="example">
+            <p>Supongamos que queremos calcular la suma de los pares 3, 4 y 2, 1, respectivamente utilizando la función <code>sumaMemoize</code>.</p>
+            <p>Primero, creamos una instancia de la función y luego la usamos para calcular el resultado. Primeramente, el calculo se realizara
+                y los parametros seran almacenados en la variable 'cache'. Al volver a llamar a la funcion con los mismos parametros, la funcion
+                nos permite acceder a los valores previamente almacenados en la 'cache' para evitar repetir el calculo.
+            </p>
+            <div class="code">
+                <code>const memoSuma = sumaMemoize();
+                const resultado1 = memoSuma(3, 4);
+                const resultado2 = memoSuma(3, 4);
+                const resultado3 = memoSuma(2, 1);
+                const resultado4 = memoSuma(2, 1);
+                console.log('resultado 1: ' + resultado1);
+                console.log('resultado 2: ' + resultado2);
+                console.log('resultado 3: ' + resultado3);
+                console.log('resultado 4: ' + resultado4);
+                </code>
+            </div>
+            <p>Los resultados serán:</p>
+            <div class="code">
+                <ul>
+                <li>El primer resultado sera calculado: 7</li>
+                <li>El segundo resultado es recogido de la cache: 7</li>
+                <li>El tercer resultado sera calculado: 3</li>
+                <li>El cuarto resultado es recogido de la cache: 3</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Conclusión</h2>
+        <p>La funcion <code>Memoize</code> es útil para evitar cálculos repetitivos y mejorar 
+            el rendimiento al almacenar resultados previamente calculados en caché. Esto puede 
+            ser especialmente util en situaciones donde se realizan cálculos elaborados.</p>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
